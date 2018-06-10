@@ -14,4 +14,9 @@ public class ExampleUnitTest {
     public void addition_isCorrect() {
         assertEquals(4, 2 + 2);
     }
+
+    @Test
+    public void testRequest() throws Exception {
+        Retrofits.flight.getData("0e29a686b2ad016b6d43087b0f441dbe","LED", "MOW", "10-06-2018", 999, 1).execute();
+    }
 }
