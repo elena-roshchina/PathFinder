@@ -1,4 +1,21 @@
 <resources>
     <string name="app_name">PathFinder</string>
+    <string name="caption_button_go">Go!</string>
+    <string name="hint_date_start">Start date</string>
+    <string name="hint_date_end">End date</string>
+    <string name="hint_point_start">Start point</string>
+    <string name="hint_point_destination">Destination point</string>
+    <string name="hint_sum">Sum</string>
+
+    <string name="caption_ticket_price">Price</string>
+    <string name="caption_ticket_start">Start ticket</string>
+    <string name="caption_ticket_end">End ticket</string>
+    <string name="caption_ticket_class">Class</string>
+
+    <string name="caption_apps_image">Image of apartments</string>
+    <string name="caption_apps_price">Price</string>
+    <string name="caption_apps_rating">Rating</string>
+    <integer name="number_apps_rating">5</integer>
+
     <string name="apartments_found">Apartments found =</string>
 </resources>
