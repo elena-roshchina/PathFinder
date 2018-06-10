@@ -17,4 +17,7 @@
     <string name="caption_apps_rating">Rating</string>
     <integer name="number_apps_rating">5</integer>
 
+    <string name="caption_start_date_dialog">Start date dialog</string>
+    <string name="caption_end_date_dialog">End date dialog</string>
+
 </resources>
