@@ -50,14 +50,11 @@ public class Apartments extends AppCompatActivity {
         final String location = intent.getStringExtra("EXTRA_LOCATION");
         final int price_max = intent.getIntExtra("EXTRA_PRICE",50);
 
-
         apartmentCountTxt = findViewById(R.id.apartments_count);
-       
 
         recyclerView = (RecyclerView) findViewById(R.id.appts_recycle_view);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-
 
         final int limit = 50;
         final int price_min = 0;
@@ -112,8 +109,7 @@ public class Apartments extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
+        
         new Handler(Looper.getMainLooper()).post(new Runnable() {
             @Override
             public void run() {
