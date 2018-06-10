@@ -2,54 +2,51 @@
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/list_margin"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/ticketElementLayout">
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/ticketElementConstraint"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/flightPriceText"
             android:layout_width="@dimen/zero_dp"
-            android:layout_height="@dimen/zero_dp"
+            android:layout_height="wrap_content"
             android:text="@string/caption_ticket_price"
-            app:layout_constraintBottom_toBottomOf="@id/ticketElementConstraint"
             app:layout_constraintLeft_toLeftOf="@id/ticketElementConstraint"
-            app:layout_constraintRight_toLeftOf="@id/ticketStartDetailsText"
-            app:layout_constraintTop_toTopOf="@+id/ticketElementConstraint" />
+            app:layout_constraintRight_toLeftOf="@id/ticketStartDetailsText" />
 
         <TextView
             android:id="@+id/ticketStartDetailsText"
             android:layout_width="@dimen/zero_dp"
-            android:layout_height="@dimen/zero_dp"
+            android:layout_height="wrap_content"
             android:text="@string/caption_ticket_start"
-            app:layout_constraintBottom_toTopOf="@id/ticketEndDetailsText"
             app:layout_constraintLeft_toRightOf="@id/flightPriceText"
             app:layout_constraintRight_toLeftOf="@id/tripClassText"
-            app:layout_constraintTop_toTopOf="@id/ticketElementConstraint" />
+            app:layout_constraintTop_toTopOf="@id/ticketElementConstraint"
+            app:layout_constraintBottom_toTopOf="@id/ticketEndDetailsText"/>
 
         <TextView
             android:id="@+id/ticketEndDetailsText"
             android:layout_width="@dimen/zero_dp"
-            android:layout_height="@dimen/zero_dp"
+            android:layout_height="wrap_content"
             android:text="@string/caption_ticket_end"
-            app:layout_constraintBottom_toBottomOf="@id/ticketElementConstraint"
             app:layout_constraintLeft_toRightOf="@id/flightPriceText"
             app:layout_constraintRight_toLeftOf="@id/tripClassText"
-            app:layout_constraintTop_toBottomOf="@id/ticketStartDetailsText" />
+            app:layout_constraintTop_toBottomOf="@id/ticketStartDetailsText"
+            app:layout_constraintBottom_toBottomOf="@id/ticketElementConstraint"/>
 
         <TextView
             android:id="@+id/tripClassText"
             android:layout_width="@dimen/zero_dp"
-            android:layout_height="@dimen/zero_dp"
+            android:layout_height="wrap_content"
             android:text="@string/caption_ticket_class"
-            app:layout_constraintBottom_toBottomOf="@id/ticketElementConstraint"
             app:layout_constraintLeft_toRightOf="@id/ticketEndDetailsText"
-            app:layout_constraintRight_toRightOf="@id/ticketElementConstraint"
-            app:layout_constraintTop_toTopOf="@id/ticketElementConstraint" />
+            app:layout_constraintRight_toRightOf="@id/ticketElementConstraint"/>
 
 
     </android.support.constraint.ConstraintLayout>

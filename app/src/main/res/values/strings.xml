@@ -16,6 +16,13 @@
     <string name="caption_apps_price">Price</string>
     <string name="caption_apps_rating">Rating</string>
     <integer name="number_apps_rating">5</integer>
+  
+    <string name="string_economy_type">Economy</string>
+    <string name="string_business_type">Business Class</string>
+    <string name="string_firstClass_type">First Class</string>
+
+    <string name="caption_start_date_dialog">Start date dialog</string>
+    <string name="caption_end_date_dialog">End date dialog</string>
 
     <string name="apartments_found">Apartments found =</string>
     <string name="executing_task">Apartments search</string>
