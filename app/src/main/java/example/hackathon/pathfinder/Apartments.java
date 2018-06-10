@@ -1,5 +1,6 @@
 package example.hackathon.pathfinder;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -32,14 +33,15 @@ public class Apartments extends AppCompatActivity {
 
     private static final ExecutorService executor = Executors.newSingleThreadExecutor();
 
-    final String EXTRA_LOCATION = "EXTRA_LOCATION";
-    final String EXTRA_PRICE = "EXTRA_PRICE";
+    private final static String EXTRA_LOCATION = "EXTRA_LOCATION";
+    private final static String EXTRA_PRICE = "EXTRA_PRICE";
 
-    private void openSecondActivity(String location, int price){
-        Intent apartmentsIntent = new Intent(this,Apartments.class);
+    public static Intent apptsIntent(Context context, String location, int price){
+
+        Intent apartmentsIntent = new Intent(context, Apartments.class);
         apartmentsIntent.putExtra(EXTRA_LOCATION, location);
         apartmentsIntent.putExtra(EXTRA_PRICE, price);
-        startActivity(apartmentsIntent);
+        return apartmentsIntent;
     };
 
     @Override
