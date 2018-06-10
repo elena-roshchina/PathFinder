@@ -17,4 +17,8 @@
     <string name="caption_apps_rating">Rating</string>
     <integer name="number_apps_rating">5</integer>
 
+    <string name="string_economy_type">Economy</string>
+    <string name="string_business_type">Business Class</string>
+    <string name="string_firstClass_type">First Class</string>
+
 </resources>

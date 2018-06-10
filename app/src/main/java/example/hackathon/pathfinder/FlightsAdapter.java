@@ -1,6 +1,7 @@
 package example.hackathon.pathfinder;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.StringRes;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,12 +10,13 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import example.hackathon.pathfinder.flight.Flight;
 
 public class FlightsAdapter extends RecyclerView.Adapter<FlightsAdapter.FlightsViewHolder> {
 
-    private ArrayList<Flight> flights;
+    final private ArrayList<Flight> flights;
 
 
     public FlightsAdapter() {
@@ -45,7 +47,7 @@ public class FlightsAdapter extends RecyclerView.Adapter<FlightsAdapter.FlightsV
         holder.flightPrice.setText(flightPrice.toString());
         holder.startDate.setText(startDate);
         holder.endDate.setText(endDate);
-        holder.classType.setText(classType.toString());
+        holder.classType.setText(FlightsViewHolder.ClassType.findById(classType).nameId);
 
     }
 
@@ -59,6 +61,31 @@ public class FlightsAdapter extends RecyclerView.Adapter<FlightsAdapter.FlightsV
         final TextView startDate;
         final TextView endDate;
         final TextView classType;
+
+        public enum ClassType {
+            ECONOMY(0,R.string.string_economy_type),
+            BUSINESS(1, R.string.string_business_type),
+            FIRST(2, R.string.string_firstClass_type);
+
+            public final int classType;
+            @StringRes public final int nameId;
+
+            ClassType(int classType, @StringRes int nameId) {
+                this.classType = classType;
+                this.nameId = nameId;
+            }
+
+            public static ClassType findById(int id) {
+                for (ClassType classType :
+                        values()) {
+                    if (classType.classType == id) {
+                        return classType;
+                    }
+                }
+                throw new NoSuchElementException();
+
+            }
+        }
 
 
         public FlightsViewHolder(View itemView) {
