@@ -49,10 +49,9 @@ public class Apartments extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.apps_list);
         Intent intent = getIntent();
-        //final String location = intent.getStringExtra("EXTRA_LOCATION");
-        //final int price_max = intent.getStringExtra("EXTRA_PRICE");;
-        final String location = "Paris";
-        final int price_max = 100;
+        final String location = intent.getStringExtra("EXTRA_LOCATION");
+        final int price_max = intent.getIntExtra("EXTRA_PRICE",50);
+
 
         apartmentCountTxt = findViewById(R.id.apartments_count);
         apartments = new ArrayList<>();
