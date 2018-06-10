@@ -37,59 +37,20 @@ public class MainActivity extends AppCompatActivity {
         userInfo = new UserInfo();
 
         startPoint = findViewById(R.id.startPointEdit);
-        startPoint.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
+        startPoint.addTextChangedListener(new MyTextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
                 userInfo.setStartPoint(startPoint.getText().toString());
             }
         });
         destinationPoint = findViewById(R.id.destinationPointEdit);
-        destinationPoint.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
+        destinationPoint.addTextChangedListener(new MyTextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
                 userInfo.setDestinationPoint(destinationPoint.getText().toString());
             }
         });
         startDate = findViewById(R.id.startDateEdit);
-        startDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if(hasFocus){
-                    DatePickerDialog datePickerDialog = DatePickerDialog.newInstance(
-                            new DatePickerDialog.OnDateSetListener() {
-                                @Override
-                                public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
-                                    Calendar pickedDate = Calendar.getInstance();
-                                    pickedDate.set(year, monthOfYear, dayOfMonth);
-                                    startDate.setText(DateFormat.getDateInstance().format(pickedDate.getTime()));
-                                    userInfo.setStartDate(pickedDate.getTime());
-                                }
-                            },
-                            currentYear, currentMonth, currentDay);
-                    datePickerDialog.show(getFragmentManager(),getString(R.string.caption_start_date_dialog));
-                }
-            }
-        });
         startDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -108,25 +69,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         endDate = findViewById(R.id.endDateEdit);
-        endDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if(hasFocus){
-                    DatePickerDialog datePickerDialog = DatePickerDialog.newInstance(
-                            new DatePickerDialog.OnDateSetListener() {
-                                @Override
-                                public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
-                                    Calendar pickedDate = Calendar.getInstance();
-                                    pickedDate.set(year, monthOfYear, dayOfMonth);
-                                    endDate.setText(DateFormat.getDateInstance().format(pickedDate.getTime()));
-                                    userInfo.setEndDate(pickedDate.getTime());
-                                }
-                            },
-                            currentYear, currentMonth, currentDay);
-                    datePickerDialog.show(getFragmentManager(),getString(R.string.caption_end_date_dialog));
-                }
-            }
-        });
         endDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -145,17 +87,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         sum = findViewById(R.id.sumEdit);
-        sum.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
+        sum.addTextChangedListener(new MyTextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
                 userInfo.setSum(Integer.parseInt(sum.getText().toString()));
