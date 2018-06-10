@@ -2,6 +2,7 @@ package example.hackathon.pathfinder;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
@@ -15,12 +16,15 @@ public class MainActivity extends AppCompatActivity {
     private static final String AIRBNB_CLIENT_ID = "3092nxybyb0otqw18e8nh5nty";
     private static final String CURRENCY ="USD";
     private static final String FORMAT_AIRBNB = "for_search_results_with_minimal_pricing";
+    TextView apartmentCountTxt;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        apartmentCountTxt = findViewById(R.id.apartments_count);
+
 
         String location = "Paris";
         int limit = 1;
@@ -37,6 +41,9 @@ public class MainActivity extends AppCompatActivity {
 
                         Toast.makeText(MainActivity.this, "success",
                                 Toast.LENGTH_SHORT).show();
+                        int apartmentCount = response.body().getSearchResults().size();
+
+                        apartmentCountTxt.append(" " +apartmentCount);
 
                 } else {
                     Toast.makeText(MainActivity.this, "response empty",
