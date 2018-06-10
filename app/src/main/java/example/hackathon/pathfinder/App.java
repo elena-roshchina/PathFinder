@@ -11,12 +11,12 @@ public class App extends Application {
     private static final String AIRBNB_BASE_URL = "https://api.airbnb.com";
     private static final String AIRBNB_CLIENT_ID = "3092nxybyb0otqw18e8nh5nty";
 
-    private Retrofit retrofitAirbnb;
 
     @Override
     public void onCreate() {
         super.onCreate();
 
+        Retrofit retrofitAirbnb;
         retrofitAirbnb = new Retrofit.Builder()
                 .baseUrl(AIRBNB_BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
