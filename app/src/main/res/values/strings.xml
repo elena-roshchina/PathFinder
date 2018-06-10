@@ -18,4 +18,5 @@
     <integer name="number_apps_rating">5</integer>
 
     <string name="apartments_found">Apartments found =</string>
+    <string name="executing_task">Apartments search</string>
 </resources>
