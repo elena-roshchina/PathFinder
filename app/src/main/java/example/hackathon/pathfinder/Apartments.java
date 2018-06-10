@@ -25,7 +25,6 @@ public class Apartments extends AppCompatActivity {
     private static final String CURRENCY ="USD";
     private static final String FORMAT_AIRBNB = "for_search_results_with_minimal_pricing";
     TextView apartmentCountTxt;
-    List<SearchResult> apartments;
     RecyclerView recyclerView;
     LinearLayoutManager layoutManager;
     AirbnbAdapter airbnbAdapter;
@@ -53,7 +52,7 @@ public class Apartments extends AppCompatActivity {
 
 
         apartmentCountTxt = findViewById(R.id.apartments_count);
-        apartments = new ArrayList<>();
+       
 
         recyclerView = (RecyclerView) findViewById(R.id.appts_recycle_view);
         layoutManager = new LinearLayoutManager(this);
