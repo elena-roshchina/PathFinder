@@ -7,6 +7,7 @@ import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import java.io.IOException;
@@ -30,6 +31,16 @@ public class Apartments extends AppCompatActivity {
     AirbnbAdapter airbnbAdapter;
 
     private static final ExecutorService executor = Executors.newSingleThreadExecutor();
+
+    final String EXTRA_LOCATION = "EXTRA_LOCATION";
+    final String EXTRA_PRICE = "EXTRA_PRICE";
+
+    private void openSecondActivity(String location, int price){
+        Intent apartmentsIntent = new Intent(this,Apartments.class);
+        apartmentsIntent.putExtra(EXTRA_LOCATION, location);
+        apartmentsIntent.putExtra(EXTRA_PRICE, price);
+        startActivity(apartmentsIntent);
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
