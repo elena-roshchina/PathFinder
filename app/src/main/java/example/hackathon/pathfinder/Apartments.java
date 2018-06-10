@@ -1,5 +1,6 @@
 package example.hackathon.pathfinder;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -28,6 +29,8 @@ public class Apartments extends AppCompatActivity {
     RecyclerView recyclerView;
     LinearLayoutManager layoutManager;
     AirbnbAdapter airbnbAdapter;
+    private ProgressDialog mDialog;
+    private static final int APPTS_NUMBER_MAX = 50;
 
     private static final ExecutorService executor = Executors.newSingleThreadExecutor();
 
@@ -61,6 +64,12 @@ public class Apartments extends AppCompatActivity {
         final int sort = 1;
         final int priceDelta = 10;
 
+
+        mDialog = new ProgressDialog(this);
+        mDialog.setMessage(getResources().getString(R.string.executing_task));
+        mDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        mDialog.show();
+
         executor.execute(new Runnable() {
             @Override
             public void run() {
@@ -93,7 +102,7 @@ public class Apartments extends AppCompatActivity {
                         if (imgURL != null  && rating != null && rating >= fourStars){
                             searchResult.add(r);
                         }
-                        if (searchResult.size() >= 50) {
+                        if (searchResult.size() >= APPTS_NUMBER_MAX) {
                             break outer;
                         }
                     }
@@ -109,16 +118,16 @@ public class Apartments extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
+
         new Handler(Looper.getMainLooper()).post(new Runnable() {
             @Override
             public void run() {
                 apartmentCountTxt.append(" total");
+                mDialog.cancel();
                 airbnbAdapter = new AirbnbAdapter(searchResult);
                 recyclerView.setAdapter(airbnbAdapter);
             }
         });
 
     }// end of fetchData
-
 }
