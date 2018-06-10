@@ -9,8 +9,6 @@ import retrofit2.http.Query;
 
 public interface AirbnbApi {
     @GET("/v2/search_results")
-
-
     Call<AirBnbModel> getData(@Query("client_id") String client_id,
                                     @Query("currency") String currencyName,
                                     @Query("_format") String format,

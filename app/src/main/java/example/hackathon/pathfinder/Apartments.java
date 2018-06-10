@@ -8,7 +8,6 @@ import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import java.io.IOException;
@@ -122,7 +121,6 @@ public class Apartments extends AppCompatActivity {
                 apartmentCountTxt.append(" total");
                 airbnbAdapter = new AirbnbAdapter(searchResult);
                 recyclerView.setAdapter(airbnbAdapter);
-                recyclerView.getAdapter().notifyDataSetChanged();
             }
         });
 
