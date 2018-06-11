@@ -22,7 +22,7 @@ public class PathResume extends AppCompatActivity {
         setContentView(R.layout.resume);
         Intent intent = getIntent();
 
-        Flight flight = intent.getParcelableExtra("EXTRA_FLIGHT");
+        Flight flight = (Flight) intent.getParcelableExtra("EXTRA_FLIGHT");
         String imgURL = intent.getStringExtra("EXTRA_IMG_URL");
         int price = intent.getIntExtra("EXTRA_APPT_PRICE",0);
         Float rating = intent.getFloatExtra("EXTRA_RATING",0f);

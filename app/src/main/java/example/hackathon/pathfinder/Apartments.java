@@ -69,7 +69,7 @@ public class Apartments extends AppCompatActivity {
         Intent intent = getIntent();
         final String location = intent.getStringExtra("EXTRA_LOCATION");
         final int price_max = intent.getIntExtra("EXTRA_PRICE",50);
-        Flight flight = intent.getParcelableExtra("EXTRA_FLIGHT");
+        Flight flight = (Flight) intent.getParcelableExtra("EXTRA_FLIGHT");
 
         apartmentCountTxt = findViewById(R.id.apartments_count);
         apartmentCountTxt.setText("Apartments");
