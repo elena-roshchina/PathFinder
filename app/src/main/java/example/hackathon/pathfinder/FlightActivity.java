@@ -50,11 +50,13 @@ public class FlightActivity extends AppCompatActivity {
         recyclerView.setAdapter(flightsAdapter);
 
         String s = userInfo.getStartPoint();
+        String s1 = userInfo.getDestinationPoint();
         String startNameAbbreviation = s.substring(s.length() - 3, s.length());
+        String endNameAbbreviation = s1.substring(s1.length() - 3, s1.length());
 
         Retrofits.flight.getData(TRAVELPAYOUTS_CLIENT_ID,
-                userInfo.getStartPoint(),
-                userInfo.getDestinationPoint(),
+                startNameAbbreviation,
+                endNameAbbreviation,
                 userInfo.getStartDate().toString(),
                 "month",
                 false,
