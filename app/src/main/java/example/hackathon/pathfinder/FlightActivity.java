@@ -49,6 +49,8 @@ public class FlightActivity extends AppCompatActivity {
 
         recyclerView.setAdapter(flightsAdapter);
 
+        String s = userInfo.getStartPoint();
+        String startNameAbbreviation = s.substring(s.length() - 3, s.length());
 
         Retrofits.flight.getData(TRAVELPAYOUTS_CLIENT_ID,
                 userInfo.getStartPoint(),
@@ -60,7 +62,10 @@ public class FlightActivity extends AppCompatActivity {
                 userInfo.getDuration()).enqueue(new Callback<FlightResults>() {
             @Override
             public void onResponse(Call<FlightResults> call, Response<FlightResults> response) {
-                flightsAdapter.addFlights(response.body().getData());
+                if (response.isSuccessful()) {
+                    flightsAdapter.addFlights(response.body().getData());
+                }
+
             }
 
             @Override
