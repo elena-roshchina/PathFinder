@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,6 +20,7 @@ import java.util.concurrent.Executors;
 
 import example.hackathon.pathfinder.airbnbmodel.AirBnbModel;
 import example.hackathon.pathfinder.airbnbmodel.SearchResult;
+import example.hackathon.pathfinder.flight.Flight;
 import retrofit2.Response;
 
 public class Apartments extends AppCompatActivity {
@@ -36,13 +38,28 @@ public class Apartments extends AppCompatActivity {
 
     private final static String EXTRA_LOCATION = "EXTRA_LOCATION";
     private final static String EXTRA_PRICE = "EXTRA_PRICE";
+    private final static String EXTRA_FLIGHT = "EXTRA_FLIGHT";
+    private final static String EXTRA_IMG_URL = "EXTRA_IMG_URL";
+    private final static String EXTRA_APPT_PRICE = "EXTRA_APPT_PRICE";
+    private final static String EXTRA_RATING = "EXTRA_RATING";
 
-    public static Intent apptsIntent(Context context, String location, int price){
+
+    public static Intent apptsIntent(Context context, String location, int price, Flight flight){
 
         Intent apartmentsIntent = new Intent(context, Apartments.class);
         apartmentsIntent.putExtra(EXTRA_LOCATION, location);
         apartmentsIntent.putExtra(EXTRA_PRICE, price);
+        apartmentsIntent.putExtra(EXTRA_FLIGHT,(Parcelable) flight);
         return apartmentsIntent;
+    };
+
+    public static Intent resumeIntent(Context context, Flight flight, String imgURL, int price, float rating ){
+        Intent resIntent = new Intent(context, PathResume.class);
+        resIntent.putExtra(EXTRA_FLIGHT, (Parcelable) flight);
+        resIntent.putExtra(EXTRA_IMG_URL, imgURL);
+        resIntent.putExtra(EXTRA_APPT_PRICE, price);
+        resIntent.putExtra(EXTRA_RATING, rating);
+        return resIntent;
     };
 
     @Override
@@ -52,6 +69,7 @@ public class Apartments extends AppCompatActivity {
         Intent intent = getIntent();
         final String location = intent.getStringExtra("EXTRA_LOCATION");
         final int price_max = intent.getIntExtra("EXTRA_PRICE",50);
+        Flight flight = (Flight) intent.getParcelableExtra("EXTRA_FLIGHT");
 
         apartmentCountTxt = findViewById(R.id.apartments_count);
         apartmentCountTxt.setText("Apartments");
