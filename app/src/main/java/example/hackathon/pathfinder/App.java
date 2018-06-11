@@ -12,20 +12,18 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class App extends Application {
 
-    private static final String AIRBNB_BASE_URL = "https://api.airbnb.com";
-
     private static final String TRAVELPAYOUTS_BASE_URL = "http://api.travelpayouts.com/v2/";
     private static final String TRAVELPAYOUTS_CLIENT_ID = "0e29a686b2ad016b6d43087b0f441dbe";
-
 
     public static AirbnbApi getAirbnbApi() {
         return Retrofits.airbnb;
     }
     public static FlightApi getFlightApi() { return Retrofits.flight; }
-
 }
 
 class Retrofits {
+
+    private static final String AIRBNB_BASE_URL = "https://api.airbnb.com";
     static final AirbnbApi airbnb;
     static final FlightApi flight;
     static {
@@ -34,7 +32,7 @@ class Retrofits {
                 .build();
 
         airbnb = new Retrofit.Builder()
-                .baseUrl("https://api.airbnb.com")
+                .baseUrl(AIRBNB_BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
                 .create(AirbnbApi.class);
