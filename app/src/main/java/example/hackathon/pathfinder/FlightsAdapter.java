@@ -66,7 +66,6 @@ public class FlightsAdapter extends RecyclerView.Adapter<FlightsAdapter.FlightsV
         final TextView endDate;
         final TextView classType;
 
-
         public FlightsViewHolder(final View itemView) {
             super(itemView);
             this.flightPrice = itemView.findViewById(R.id.flightPriceText);
