@@ -2,7 +2,7 @@
     <string name="app_name">PathFinder</string>
     <string name="caption_button_go">Go!</string>
     <string name="hint_date_start">Start date</string>
-    <string name="hint_date_end">End date</string>
+    <string name="hint_date_end">Duration</string>
     <string name="hint_point_start">Start point</string>
     <string name="hint_point_destination">Destination point</string>
     <string name="hint_sum">Sum</string>

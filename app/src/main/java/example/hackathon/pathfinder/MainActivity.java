@@ -1,25 +1,38 @@
 package example.hackathon.pathfinder;
 
-import android.content.Intent;
-import android.os.Parcel;
+import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
+import java.io.IOException;
+import java.lang.reflect.Type;
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
+import java.util.List;
+
+import example.hackathon.pathfinder.autocomplete.AutoCompleteResult;
+import example.hackathon.pathfinder.autocomplete.AutoCompleteResults;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
     private static final String AIRBNB_CLIENT_ID = "3092nxybyb0otqw18e8nh5nty";
 
-    private EditText startPoint, destinationPoint, startDate, endDate, sum;
+    private EditText startDate, duration, sum;
+    private AutoCompleteTextView startPoint, destinationPoint;
     private Button goButton;
     private int currentDay, currentMonth, currentYear;
     private UserInfo userInfo;
@@ -40,6 +53,40 @@ public class MainActivity extends AppCompatActivity {
         startPoint.addTextChangedListener(new MyTextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
+                Retrofits.autocomplete.getData(
+                        startPoint.getText().toString(),
+                        "en",
+                        "city").enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call,
+                                           Response<ResponseBody> response) {
+                        List<AutoCompleteResult> results = new ArrayList<>();
+                        try {
+                            String json = response.body().string();
+                            Gson gson = new Gson();
+
+                            Type listType = new TypeToken<List<AutoCompleteResult>>()
+                            {
+                            }.getType();
+
+                            results = gson.fromJson(json, listType);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                        List<String> str = new ArrayList<String>();
+                        for(AutoCompleteResult s : results) {
+                            str.add(s.getName() + " - " + s.getCode());
+                        }
+
+                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(),
+                                android.R.layout.simple_dropdown_item_1line, str.toArray(new String[0]));
+                        startPoint.setAdapter(adapter);
+                    }
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    }
+                });
                 userInfo.setStartPoint(startPoint.getText().toString());
             }
         });
@@ -47,6 +94,40 @@ public class MainActivity extends AppCompatActivity {
         destinationPoint.addTextChangedListener(new MyTextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
+                Retrofits.autocomplete.getData(
+                        destinationPoint.getText().toString(),
+                        "en",
+                        "city").enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call,
+                                           Response<ResponseBody> response) {
+                        List<AutoCompleteResult> results = new ArrayList<>();
+                        try {
+                            String json = response.body().string();
+                            Gson gson = new Gson();
+
+                            Type listType = new TypeToken<List<AutoCompleteResult>>()
+                            {
+                            }.getType();
+
+                            results = gson.fromJson(json, listType);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                        List<String> str = new ArrayList<String>();
+                        for(AutoCompleteResult s : results) {
+                            str.add(s.getName() + " - " + s.getCode());
+                        }
+
+                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(),
+                                android.R.layout.simple_dropdown_item_1line, str.toArray(new String[0]));
+                        destinationPoint.setAdapter(adapter);
+                    }
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    }
+                });
                 userInfo.setDestinationPoint(destinationPoint.getText().toString());
             }
         });
@@ -68,22 +149,11 @@ public class MainActivity extends AppCompatActivity {
                 datePickerDialog.show(getFragmentManager(),getString(R.string.caption_start_date_dialog));
             }
         });
-        endDate = findViewById(R.id.endDateEdit);
-        endDate.setOnClickListener(new View.OnClickListener() {
+        duration = findViewById(R.id.endDateEdit);
+        duration.addTextChangedListener(new MyTextWatcher() {
             @Override
-            public void onClick(View v) {
-                DatePickerDialog datePickerDialog = DatePickerDialog.newInstance(
-                        new DatePickerDialog.OnDateSetListener() {
-                            @Override
-                            public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
-                                Calendar pickedDate = Calendar.getInstance();
-                                pickedDate.set(year, monthOfYear, dayOfMonth);
-                                endDate.setText(DateFormat.getDateInstance().format(pickedDate.getTime()));
-                                userInfo.setEndDate(pickedDate.getTime());
-                            }
-                        },
-                        currentYear, currentMonth, currentDay);
-                datePickerDialog.show(getFragmentManager(),getString(R.string.caption_end_date_dialog));
+            public void afterTextChanged(Editable s) {
+                userInfo.setDuration(Integer.parseInt(sum.getText().toString()));
             }
         });
         sum = findViewById(R.id.sumEdit);
