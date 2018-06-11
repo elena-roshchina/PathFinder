@@ -19,6 +19,7 @@ import java.util.concurrent.Executors;
 
 import example.hackathon.pathfinder.airbnbmodel.AirBnbModel;
 import example.hackathon.pathfinder.airbnbmodel.SearchResult;
+import example.hackathon.pathfinder.flight.Flight;
 import retrofit2.Response;
 
 public class Apartments extends AppCompatActivity {
@@ -36,12 +37,14 @@ public class Apartments extends AppCompatActivity {
 
     private final static String EXTRA_LOCATION = "EXTRA_LOCATION";
     private final static String EXTRA_PRICE = "EXTRA_PRICE";
+    private final static String EXTRA_FLIGHT = "EXTRA_FLIGHT";
 
-    public static Intent apptsIntent(Context context, String location, int price){
+    public static Intent apptsIntent(Context context, String location, int price, String flight){
 
         Intent apartmentsIntent = new Intent(context, Apartments.class);
         apartmentsIntent.putExtra(EXTRA_LOCATION, location);
         apartmentsIntent.putExtra(EXTRA_PRICE, price);
+        apartmentsIntent.putExtra(EXTRA_FLIGHT,flight);
         return apartmentsIntent;
     };
 
@@ -52,6 +55,7 @@ public class Apartments extends AppCompatActivity {
         Intent intent = getIntent();
         final String location = intent.getStringExtra("EXTRA_LOCATION");
         final int price_max = intent.getIntExtra("EXTRA_PRICE",50);
+        String flight = intent.getStringExtra("EXTRA_FLIGHT");
 
         apartmentCountTxt = findViewById(R.id.apartments_count);
         apartmentCountTxt.setText("Apartments");
