@@ -17,6 +17,6 @@ public class ExampleUnitTest {
 
     @Test
     public void testRequest() throws Exception {
-        Retrofits.flight.getData("0e29a686b2ad016b6d43087b0f441dbe","LED", "MOW", "10-06-2018", 999, 1).execute();
+        Retrofits.flight.getData("0e29a686b2ad016b6d43087b0f441dbe","LED", "MOW", "10-06-2", "month", 100, 1).execute();
     }
 }

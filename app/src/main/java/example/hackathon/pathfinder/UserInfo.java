@@ -12,7 +12,7 @@ public class UserInfo implements Parcelable {
         startPoint = in.readString();
         destinationPoint = in.readString();
         startDate = (Date) in.readSerializable();
-        endDate = (Date) in.readSerializable();
+        duration = in.readInt();
     }
 
     UserInfo(){
@@ -20,7 +20,7 @@ public class UserInfo implements Parcelable {
         startPoint = "";
         destinationPoint = "";
         startDate = new Date();
-        endDate = new Date();
+        duration = 0;
     }
 
     public static final Creator<UserInfo> CREATOR = new Creator<UserInfo>() {
@@ -46,7 +46,7 @@ public class UserInfo implements Parcelable {
         dest.writeString(startPoint);
         dest.writeString(destinationPoint);
         dest.writeSerializable(startDate);
-        dest.writeSerializable(endDate);
+        dest.writeSerializable(duration);
     }
 
     public int getSum() {
@@ -81,12 +81,12 @@ public class UserInfo implements Parcelable {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
-        return endDate;
+    public int getDuration() {
+        return this.duration;
     }
 
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
+    public void setDuration(int duration) {
+        this.duration = duration;
     }
 
     private int sum;
@@ -97,5 +97,5 @@ public class UserInfo implements Parcelable {
 
     private Date startDate;
 
-    private Date endDate;
+    private int duration;
 }

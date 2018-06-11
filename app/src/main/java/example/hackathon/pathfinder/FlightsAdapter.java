@@ -17,10 +17,12 @@ import example.hackathon.pathfinder.flight.Flight;
 public class FlightsAdapter extends RecyclerView.Adapter<FlightsAdapter.FlightsViewHolder> {
 
     final private ArrayList<Flight> flights;
+    final private UserInfo userInfo;
 
 
-    public FlightsAdapter() {
+    public FlightsAdapter(UserInfo userInfo) {
         this.flights = new ArrayList<Flight>();
+        this.userInfo = userInfo;
     }
 
     public void addFlights(List<Flight> flights) {
@@ -47,7 +49,7 @@ public class FlightsAdapter extends RecyclerView.Adapter<FlightsAdapter.FlightsV
         holder.flightPrice.setText(flightPrice.toString());
         holder.startDate.setText(startDate);
         holder.endDate.setText(endDate);
-        holder.classType.setText(FlightsViewHolder.ClassType.findById(classType).nameId);
+        holder.classType.setText(ClassType.findById(classType).nameId);
 
     }
 
@@ -56,44 +58,60 @@ public class FlightsAdapter extends RecyclerView.Adapter<FlightsAdapter.FlightsV
         return flights.size();
     }
 
-    static class FlightsViewHolder extends RecyclerView.ViewHolder {
+    class FlightsViewHolder extends RecyclerView.ViewHolder {
         final TextView flightPrice;
         final TextView startDate;
         final TextView endDate;
         final TextView classType;
 
-        public enum ClassType {
-            ECONOMY(0,R.string.string_economy_type),
-            BUSINESS(1, R.string.string_business_type),
-            FIRST(2, R.string.string_firstClass_type);
 
-            public final int classType;
-            @StringRes public final int nameId;
-
-            ClassType(int classType, @StringRes int nameId) {
-                this.classType = classType;
-                this.nameId = nameId;
-            }
-
-            public static ClassType findById(int id) {
-                for (ClassType classType :
-                        values()) {
-                    if (classType.classType == id) {
-                        return classType;
-                    }
-                }
-                throw new NoSuchElementException();
-
-            }
-        }
-
-
-        public FlightsViewHolder(View itemView) {
+        public FlightsViewHolder(final View itemView) {
             super(itemView);
             this.flightPrice = itemView.findViewById(R.id.flightPriceText);
             this.startDate = itemView.findViewById(R.id.ticketStartDetailsText);
             this.endDate = itemView.findViewById(R.id.ticketEndDetailsText);
             this.classType = itemView.findViewById(R.id.tripClassText);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int idOnClick = getAdapterPosition();
+                    Flight flight = flights.get(idOnClick);
+
+                    v.getContext().startActivity(
+                            Apartments.apptsIntent(
+                                    v.getContext(),
+                                    userInfo.getDestinationPoint(),
+                                    (userInfo.getSum() - flight.getValue()) / 7
+                            )
+                    );
+                }
+            });
+        }
+    }
+
+    public enum ClassType {
+        ECONOMY(0, R.string.string_economy_type),
+        BUSINESS(1, R.string.string_business_type),
+        FIRST(2, R.string.string_firstClass_type);
+
+        public final int classType;
+        @StringRes
+        public final int nameId;
+
+        ClassType(int classType, @StringRes int nameId) {
+            this.classType = classType;
+            this.nameId = nameId;
+        }
+
+        public static ClassType findById(int id) {
+            for (ClassType classType :
+                    values()) {
+                if (classType.classType == id) {
+                    return classType;
+                }
+            }
+            throw new NoSuchElementException();
+
         }
     }
 }
