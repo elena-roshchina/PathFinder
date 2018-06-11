@@ -53,82 +53,46 @@ public class MainActivity extends AppCompatActivity {
         startPoint.addTextChangedListener(new MyTextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
-                Retrofits.autocomplete.getData(
-                        startPoint.getText().toString(),
-                        "en",
-                        "city").enqueue(new Callback<ResponseBody>() {
-                    @Override
-                    public void onResponse(Call<ResponseBody> call,
-                                           Response<ResponseBody> response) {
-                        List<AutoCompleteResult> results = new ArrayList<>();
-                        try {
-                            String json = response.body().string();
-                            Gson gson = new Gson();
-
-                            Type listType = new TypeToken<List<AutoCompleteResult>>()
-                            {
-                            }.getType();
-
-                            results = gson.fromJson(json, listType);
-                        } catch (IOException e) {
-                            e.printStackTrace();
+                if(!startPoint.getText().toString().isEmpty()) {
+                    Retrofits.autocomplete.getData(
+                            startPoint.getText().toString(),
+                            "en",
+                            "city").enqueue(new Callback<List<AutoCompleteResult>>() {
+                        @Override
+                        public void onResponse(Call<List<AutoCompleteResult>> call, Response<List<AutoCompleteResult>> response) {
+                            convertToArray(response, startPoint);
                         }
 
-                        List<String> str = new ArrayList<String>();
-                        for(AutoCompleteResult s : results) {
-                            str.add(s.getName() + " - " + s.getCode());
-                        }
+                        @Override
+                        public void onFailure(Call<List<AutoCompleteResult>> call, Throwable t) {
 
-                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(),
-                                android.R.layout.simple_dropdown_item_1line, str.toArray(new String[0]));
-                        startPoint.setAdapter(adapter);
-                    }
-                    @Override
-                    public void onFailure(Call<ResponseBody> call, Throwable t) {
-                    }
-                });
-                userInfo.setStartPoint(startPoint.getText().toString());
+                        }
+                    });
+                    userInfo.setStartPoint(startPoint.getText().toString());
+                }
             }
         });
         destinationPoint = findViewById(R.id.destinationPointEdit);
         destinationPoint.addTextChangedListener(new MyTextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
-                Retrofits.autocomplete.getData(
-                        destinationPoint.getText().toString(),
-                        "en",
-                        "city").enqueue(new Callback<ResponseBody>() {
-                    @Override
-                    public void onResponse(Call<ResponseBody> call,
-                                           Response<ResponseBody> response) {
-                        List<AutoCompleteResult> results = new ArrayList<>();
-                        try {
-                            String json = response.body().string();
-                            Gson gson = new Gson();
-
-                            Type listType = new TypeToken<List<AutoCompleteResult>>()
-                            {
-                            }.getType();
-
-                            results = gson.fromJson(json, listType);
-                        } catch (IOException e) {
-                            e.printStackTrace();
+                if(!destinationPoint.getText().toString().isEmpty()) {
+                    Retrofits.autocomplete.getData(
+                            destinationPoint.getText().toString(),
+                            "en",
+                            "city").enqueue(new Callback<List<AutoCompleteResult>>() {
+                        @Override
+                        public void onResponse(Call<List<AutoCompleteResult>> call, Response<List<AutoCompleteResult>> response) {
+                            convertToArray(response, destinationPoint);
                         }
 
-                        List<String> str = new ArrayList<String>();
-                        for(AutoCompleteResult s : results) {
-                            str.add(s.getName() + " - " + s.getCode());
-                        }
+                        @Override
+                        public void onFailure(Call<List<AutoCompleteResult>> call, Throwable t) {
 
-                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(),
-                                android.R.layout.simple_dropdown_item_1line, str.toArray(new String[0]));
-                        destinationPoint.setAdapter(adapter);
-                    }
-                    @Override
-                    public void onFailure(Call<ResponseBody> call, Throwable t) {
-                    }
-                });
-                userInfo.setDestinationPoint(destinationPoint.getText().toString());
+                        }
+                    });
+                    userInfo.setDestinationPoint(destinationPoint.getText().toString());
+                }
             }
         });
         startDate = findViewById(R.id.startDateEdit);
@@ -146,7 +110,8 @@ public class MainActivity extends AppCompatActivity {
                             }
                         },
                         currentYear, currentMonth, currentDay);
-                datePickerDialog.show(getFragmentManager(),getString(R.string.caption_start_date_dialog));
+                if(!datePickerDialog.isVisible())
+                    datePickerDialog.show(getFragmentManager(),getString(R.string.caption_start_date_dialog));
             }
         });
         duration = findViewById(R.id.endDateEdit);
@@ -174,6 +139,18 @@ public class MainActivity extends AppCompatActivity {
 
     private void openTicketsActivity(){
         startActivity(TicketsActivity.createIntent(this, userInfo));
+    }
+
+    protected void convertToArray(Response<List<AutoCompleteResult>> response,
+                                  AutoCompleteTextView point){
+        List<AutoCompleteResult> results = response.body();
+        List<String> str = new ArrayList<>();
+        for (AutoCompleteResult s : results) {
+            str.add(s.getName() + " - " + s.getCode());
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(),
+                android.R.layout.simple_dropdown_item_1line, str.toArray(new String[0]));
+        point.setAdapter(adapter);
     }
 
 }

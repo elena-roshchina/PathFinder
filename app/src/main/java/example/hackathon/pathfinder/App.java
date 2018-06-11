@@ -88,43 +88,4 @@ class Retrofits {
                 .create(FlightApi.class);
     }
 
-    public void getCitiesData(String term, final int viewID){
-
-        autocomplete.getData(term, "city", "en")
-                .enqueue(new Callback<ResponseBody>() {
-
-                    @Override
-                    public void onResponse(Call<ResponseBody> call,
-                                           Response<ResponseBody> response) {
-                        List<AutoCompleteResult> results = new ArrayList<>();
-                        try {
-                            String json = response.body().string();
-                            Gson gson = new Gson();
-
-                            Type listType = new TypeToken<List<AutoCompleteResult>>()
-                            {
-                            }.getType();
-
-                            results = gson.fromJson(json, listType);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-
-                        List<String> str = new ArrayList<String>();
-                        for(AutoCompleteResult s : results) {
-                            str.add(s.getName());
-                        }
-
-                        AutoCompleteTextView storeTV =
-                                (AutoCompleteTextView)((Activity)context).findViewById(viewID);
-
-                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(context,
-                                android.R.layout.simple_dropdown_item_1line, str.toArray(new String[0]));
-                        storeTV.setAdapter(adapter);
-                    }
-                    @Override
-                    public void onFailure(Call<ResponseBody> call, Throwable t) {
-                    }
-                });
-    }
 }

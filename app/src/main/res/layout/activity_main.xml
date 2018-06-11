@@ -48,6 +48,7 @@
             android:id="@+id/startDateEdit"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:focusable="false"
             android:hint="@string/hint_date_start"/>
     </android.support.design.widget.TextInputLayout>
 
