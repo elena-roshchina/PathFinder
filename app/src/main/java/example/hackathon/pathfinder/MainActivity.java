@@ -16,8 +16,8 @@ import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+
 public class MainActivity extends AppCompatActivity {
-    private static final String AIRBNB_CLIENT_ID = "3092nxybyb0otqw18e8nh5nty";
 
     private EditText startPoint, destinationPoint, startDate, endDate, sum;
     private Button goButton;

@@ -24,4 +24,6 @@
     <string name="caption_start_date_dialog">Start date dialog</string>
     <string name="caption_end_date_dialog">End date dialog</string>
 
+    <string name="apartments_found">Apartments found =</string>
+    <string name="executing_task">Apartments search</string>
 </resources>
