@@ -21,13 +21,11 @@ import retrofit2.Retrofit;
 
 public class FlightActivity extends AppCompatActivity {
 
-    private UserInfo userInfo;
-
     private static final ExecutorService executor = Executors.newSingleThreadExecutor();
 
     private static final String TRAVELPAYOUTS_CLIENT_ID = "0e29a686b2ad016b6d43087b0f441dbe";
 
-    private final FlightsAdapter flightsAdapter = new FlightsAdapter(userInfo);
+
 
     protected static Intent createIntent(Context context, UserInfo userInfo) {
         Intent intent = new Intent(context, FlightActivity.class);
@@ -41,18 +39,23 @@ public class FlightActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         Intent intent = getIntent();
-        userInfo = intent.getParcelableExtra("UserInfo");
+        UserInfo userInfo = intent.getParcelableExtra("UserInfo");
+
+        final FlightsAdapter flightsAdapter = new FlightsAdapter(userInfo);
 
         final RecyclerView recyclerView = new RecyclerView(this);
-
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
         recyclerView.setAdapter(flightsAdapter);
+        setContentView(recyclerView);
 
+        String s = userInfo.getStartPoint();
+        String s1 = userInfo.getDestinationPoint();
+        String startNameAbbreviation = s.substring(s.length() - 3, s.length());
+        String endNameAbbreviation = s1.substring(s1.length() - 3, s1.length());
 
         Retrofits.flight.getData(TRAVELPAYOUTS_CLIENT_ID,
-                userInfo.getStartPoint(),
-                userInfo.getDestinationPoint(),
+                startNameAbbreviation,
+                endNameAbbreviation,
                 userInfo.getStartDate().toString(),
                 "month",
                 false,
@@ -60,7 +63,10 @@ public class FlightActivity extends AppCompatActivity {
                 userInfo.getDuration()).enqueue(new Callback<FlightResults>() {
             @Override
             public void onResponse(Call<FlightResults> call, Response<FlightResults> response) {
-                flightsAdapter.addFlights(response.body().getData());
+                if (response.isSuccessful()) {
+                    flightsAdapter.addFlights(response.body().getData());
+                }
+
             }
 
             @Override

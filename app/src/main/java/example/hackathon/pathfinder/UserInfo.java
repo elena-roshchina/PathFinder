@@ -46,7 +46,7 @@ public class UserInfo implements Parcelable {
         dest.writeString(startPoint);
         dest.writeString(destinationPoint);
         dest.writeSerializable(startDate);
-        dest.writeSerializable(duration);
+        dest.writeInt(duration);
     }
 
     public int getSum() {
