@@ -1,5 +1,7 @@
 package example.hackathon.pathfinder;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.support.v7.widget.RecyclerView;
@@ -81,9 +83,12 @@ public class FlightsAdapter extends RecyclerView.Adapter<FlightsAdapter.FlightsV
                             Apartments.apptsIntent(
                                     v.getContext(),
                                     userInfo.getDestinationPoint(),
-                                    (userInfo.getSum() - flight.getValue()) / 7
+                                    (userInfo.getSum() - flight.getValue()) / (userInfo.getDuration()*7),
+                                    flight
                             )
                     );
+
+
                 }
             });
         }

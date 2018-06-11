@@ -50,18 +50,18 @@ public class FlightActivity extends AppCompatActivity {
         recyclerView.setAdapter(flightsAdapter);
 
 
-
-
         Retrofits.flight.getData(TRAVELPAYOUTS_CLIENT_ID,
                 userInfo.getStartPoint(),
                 userInfo.getDestinationPoint(),
                 userInfo.getStartDate().toString(),
                 "month",
+                false,
                 100,
                 userInfo.getDuration()).enqueue(new Callback<FlightResults>() {
             @Override
             public void onResponse(Call<FlightResults> call, Response<FlightResults> response) {
                 flightsAdapter.addFlights(response.body().getData());
+
             }
 
             @Override

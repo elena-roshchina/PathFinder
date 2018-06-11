@@ -1,10 +1,13 @@
 
 package example.hackathon.pathfinder.flight;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Flight {
+public class Flight implements Parcelable{
 
     @SerializedName("value")
     @Expose
@@ -45,6 +48,90 @@ public class Flight {
     @SerializedName("actual")
     @Expose
     private Boolean actual;
+
+    protected Flight(Parcel in) {
+        if (in.readByte() == 0) {
+            value = null;
+        } else {
+            value = in.readInt();
+        }
+        if (in.readByte() == 0) {
+            tripClass = null;
+        } else {
+            tripClass = in.readInt();
+        }
+        byte tmpShowToAffiliates = in.readByte();
+        showToAffiliates = tmpShowToAffiliates == 0 ? null : tmpShowToAffiliates == 1;
+        returnDate = in.readString();
+        origin = in.readString();
+        if (in.readByte() == 0) {
+            numberOfChanges = null;
+        } else {
+            numberOfChanges = in.readInt();
+        }
+        foundAt = in.readString();
+        if (in.readByte() == 0) {
+            distance = null;
+        } else {
+            distance = in.readInt();
+        }
+        destination = in.readString();
+        departDate = in.readString();
+        byte tmpActual = in.readByte();
+        actual = tmpActual == 0 ? null : tmpActual == 1;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        if (value == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(value);
+        }
+        if (tripClass == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(tripClass);
+        }
+        dest.writeByte((byte) (showToAffiliates == null ? 0 : showToAffiliates ? 1 : 2));
+        dest.writeString(returnDate);
+        dest.writeString(origin);
+        if (numberOfChanges == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(numberOfChanges);
+        }
+        dest.writeString(foundAt);
+        if (distance == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(distance);
+        }
+        dest.writeString(destination);
+        dest.writeString(departDate);
+        dest.writeByte((byte) (actual == null ? 0 : actual ? 1 : 2));
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<Flight> CREATOR = new Creator<Flight>() {
+        @Override
+        public Flight createFromParcel(Parcel in) {
+            return new Flight(in);
+        }
+
+        @Override
+        public Flight[] newArray(int size) {
+            return new Flight[size];
+        }
+    };
 
     public Integer getValue() {
         return value;

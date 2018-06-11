@@ -14,6 +14,7 @@ public interface FlightApi {
                                 @Query("destination") String destination,
                                 @Query("beginning_of_period") String beginning_of_period,
                                 @Query("period_type") String period_type,
+                                @Query("show_to_affiliates") boolean show_to_affiliates,
                                 @Query("limit") int limit,
                                 @Query("trip_duration") int tripDuration);
 }
