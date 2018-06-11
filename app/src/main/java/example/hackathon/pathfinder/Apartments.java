@@ -54,6 +54,7 @@ public class Apartments extends AppCompatActivity {
         final int price_max = intent.getIntExtra("EXTRA_PRICE",50);
 
         apartmentCountTxt = findViewById(R.id.apartments_count);
+        apartmentCountTxt.setText("Apartments");
 
         recyclerView = (RecyclerView) findViewById(R.id.appts_recycle_view);
         layoutManager = new LinearLayoutManager(this);
@@ -106,15 +107,8 @@ public class Apartments extends AppCompatActivity {
                             break outer;
                         }
                     }
-
-                    new Handler(Looper.getMainLooper()).post(new Runnable() {
-                        @Override
-                        public void run() {
-                            apartmentCountTxt.setText(" Apartments found = " + searchResult.size());
-                        }
-                    });
                 }
-            }// end of if
+            }// end of for
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -122,7 +116,7 @@ public class Apartments extends AppCompatActivity {
         new Handler(Looper.getMainLooper()).post(new Runnable() {
             @Override
             public void run() {
-                apartmentCountTxt.append(" total");
+                apartmentCountTxt.append(" found" + searchResult.size());
                 mDialog.cancel();
                 airbnbAdapter = new AirbnbAdapter(searchResult);
                 recyclerView.setAdapter(airbnbAdapter);
