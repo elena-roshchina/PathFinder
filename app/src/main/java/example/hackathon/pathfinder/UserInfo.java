@@ -82,7 +82,7 @@ public class UserInfo implements Parcelable {
     }
 
     public int getDuration() {
-        return this.duration;
+        return duration;
     }
 
     public void setDuration(int duration) {
