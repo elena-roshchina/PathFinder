@@ -12,7 +12,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class App extends Application {
 
-    private static final String TRAVELPAYOUTS_BASE_URL = "http://api.travelpayouts.com/v2/";
     private static final String TRAVELPAYOUTS_CLIENT_ID = "0e29a686b2ad016b6d43087b0f441dbe";
 
     public static AirbnbApi getAirbnbApi() {
