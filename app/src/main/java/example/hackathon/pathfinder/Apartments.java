@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -136,7 +137,18 @@ public class Apartments extends AppCompatActivity {
             public void run() {
                 apartmentCountTxt.append(" found" + searchResult.size());
                 mDialog.cancel();
-                airbnbAdapter = new AirbnbAdapter(searchResult);
+
+                airbnbAdapter = new AirbnbAdapter(searchResult, new AirbnbAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(@NonNull SearchResult searchResult, int position) {
+                        startActivity(resumeIntent(Apartments.this,
+                                (Flight) getIntent().getParcelableExtra(EXTRA_FLIGHT),
+                                searchResult.getListing().getPictureUrl(),
+                                searchResult.getPricingQuote().getRate().getAmount(),
+                                searchResult.getListing().getStarRating())
+                        );
+                    }
+                });
                 recyclerView.setAdapter(airbnbAdapter);
             }
         });

@@ -1,6 +1,5 @@
 package example.hackathon.pathfinder;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -19,9 +18,11 @@ import example.hackathon.pathfinder.airbnbmodel.SearchResult;
 public class AirbnbAdapter extends RecyclerView.Adapter<AirbnbAdapter.ViewHolder> {
 
     private List<SearchResult> searchResults;
+    private OnItemClickListener clickListener;
 
-    public AirbnbAdapter(List<SearchResult> searchResults) {
+    public AirbnbAdapter(List<SearchResult> searchResults, OnItemClickListener clickListener) {
         this.searchResults = searchResults;
+        this.clickListener = clickListener;
     }
 
     @NonNull
@@ -29,7 +30,7 @@ public class AirbnbAdapter extends RecyclerView.Adapter<AirbnbAdapter.ViewHolder
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.apps_element, parent, false);
-        return new ViewHolder(v);
+        return new ViewHolder(v, clickListener);
 
     }
 
@@ -64,16 +65,32 @@ public class AirbnbAdapter extends RecyclerView.Adapter<AirbnbAdapter.ViewHolder
         return searchResults.size();
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
+    interface OnItemClickListener {
+        void onItemClick(@NonNull SearchResult searchResult, int position);
+    }
+
+    class ViewHolder extends RecyclerView.ViewHolder {
+
         final ImageView image;
         final TextView price;
         final RatingBar rating;
+        private final OnItemClickListener clickListener;
 
-        ViewHolder(View itemView) {
+        ViewHolder(View itemView, final OnItemClickListener clickListener) {
             super(itemView);
             this.image = itemView.findViewById(R.id.appsImage);
             this.price = itemView.findViewById(R.id.appsPrice);
             this.rating = itemView.findViewById(R.id.appsRating);
+            this.clickListener = clickListener;
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    clickListener.onItemClick(
+                            searchResults.get(getAdapterPosition()), getAdapterPosition()
+                    );
+                }
+            });
         }
     }
 }

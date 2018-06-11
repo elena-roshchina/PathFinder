@@ -78,7 +78,8 @@ public class FlightsAdapter extends RecyclerView.Adapter<FlightsAdapter.FlightsV
                 public void onClick(View v) {
                     int idOnClick = getAdapterPosition();
                     Flight flight = flights.get(idOnClick);
-                    int price = Math.round(((userInfo.getSum() - flight.getValue()) / (userInfo.getDuration()*7)) / 70);
+                    int price = (((userInfo.getSum() - flight.getValue())
+                            / (userInfo.getDuration()*7)));
                     v.getContext().startActivity(
                             Apartments.apptsIntent(
                                     v.getContext(),
@@ -87,8 +88,6 @@ public class FlightsAdapter extends RecyclerView.Adapter<FlightsAdapter.FlightsV
                                     flight
                             )
                     );
-
-
                 }
             });
         }
