@@ -45,7 +45,7 @@ public class FlightsAdapter extends RecyclerView.Adapter<FlightsAdapter.FlightsV
     public void onBindViewHolder(@NonNull FlightsViewHolder holder, int position) {
         final Flight flight = flights.get(position);
 
-        Integer flightPrice = flight.getValue();
+        Integer flightPrice = Math.round(flight.getValue()/62);
         String startDate = flight.getDepartDate();
         String endDate = flight.getReturnDate();
         Integer classType = flight.getTripClass();
@@ -68,7 +68,6 @@ public class FlightsAdapter extends RecyclerView.Adapter<FlightsAdapter.FlightsV
         final TextView endDate;
         final TextView classType;
 
-
         public FlightsViewHolder(final View itemView) {
             super(itemView);
             this.flightPrice = itemView.findViewById(R.id.flightPriceText);
@@ -80,8 +79,7 @@ public class FlightsAdapter extends RecyclerView.Adapter<FlightsAdapter.FlightsV
                 public void onClick(View v) {
                     int idOnClick = getAdapterPosition();
                     Flight flight = flights.get(idOnClick);
-                    int price = (((userInfo.getSum() - flight.getValue())
-                            / (userInfo.getDuration()*7)));
+                    int price = ((userInfo.getSum() - flight.getValue()) / (userInfo.getDuration()*7));
                     activity.startActivityForResult(
                             Apartments.apptsIntent(
                                     v.getContext(),
