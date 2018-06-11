@@ -8,16 +8,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import java.io.IOException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import example.hackathon.pathfinder.flight.Flight;
 import example.hackathon.pathfinder.flight.FlightResults;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
 
 public class FlightActivity extends AppCompatActivity {
 
@@ -35,13 +32,21 @@ public class FlightActivity extends AppCompatActivity {
 
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 0 && resultCode == RESULT_OK){
+            finish();
+        }
+    }
+
+    @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         Intent intent = getIntent();
         UserInfo userInfo = intent.getParcelableExtra("UserInfo");
 
-        final FlightsAdapter flightsAdapter = new FlightsAdapter(userInfo);
+        final FlightsAdapter flightsAdapter = new FlightsAdapter(userInfo, this);
 
         final RecyclerView recyclerView = new RecyclerView(this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

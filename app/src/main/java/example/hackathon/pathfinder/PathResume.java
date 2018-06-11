@@ -50,8 +50,8 @@ public class PathResume extends AppCompatActivity {
     }
 
     private void openSecondActivity(){
-        Intent nextActivityIntent = new Intent(this, MainActivity.class);
-        startActivity(nextActivityIntent);
+        setResult(RESULT_OK);
+        finish();
     };
 
 

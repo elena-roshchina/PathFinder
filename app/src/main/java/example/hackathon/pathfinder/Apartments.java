@@ -46,7 +46,6 @@ public class Apartments extends AppCompatActivity {
 
 
     public static Intent apptsIntent(Context context, String location, int price, Flight flight){
-
         Intent apartmentsIntent = new Intent(context, Apartments.class);
         apartmentsIntent.putExtra(EXTRA_LOCATION, location);
         apartmentsIntent.putExtra(EXTRA_PRICE, price);
@@ -141,11 +140,11 @@ public class Apartments extends AppCompatActivity {
                 airbnbAdapter = new AirbnbAdapter(searchResult, new AirbnbAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(@NonNull SearchResult searchResult, int position) {
-                        startActivity(resumeIntent(Apartments.this,
+                        startActivityForResult(resumeIntent(Apartments.this,
                                 (Flight) getIntent().getParcelableExtra(EXTRA_FLIGHT),
                                 searchResult.getListing().getPictureUrl(),
                                 searchResult.getPricingQuote().getRate().getAmount(),
-                                searchResult.getListing().getStarRating())
+                                searchResult.getListing().getStarRating()),0
                         );
                     }
                 });
@@ -154,4 +153,13 @@ public class Apartments extends AppCompatActivity {
         });
 
     }// end of fetchData
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 0 && resultCode == RESULT_OK){
+            setResult(RESULT_OK);
+            finish();
+        }
+    }
 }

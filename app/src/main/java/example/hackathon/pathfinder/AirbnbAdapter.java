@@ -74,14 +74,12 @@ public class AirbnbAdapter extends RecyclerView.Adapter<AirbnbAdapter.ViewHolder
         final ImageView image;
         final TextView price;
         final RatingBar rating;
-        private final OnItemClickListener clickListener;
 
         ViewHolder(View itemView, final OnItemClickListener clickListener) {
             super(itemView);
             this.image = itemView.findViewById(R.id.appsImage);
             this.price = itemView.findViewById(R.id.appsPrice);
             this.rating = itemView.findViewById(R.id.appsRating);
-            this.clickListener = clickListener;
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
