@@ -1,4 +1,4 @@
-package example.hackathon.pathfinder.flight;
+package example.hackathon.pathfinder;
 
 import android.support.v7.app.AppCompatActivity;
 
