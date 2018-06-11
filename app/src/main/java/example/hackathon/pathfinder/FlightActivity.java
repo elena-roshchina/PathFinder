@@ -21,13 +21,11 @@ import retrofit2.Retrofit;
 
 public class FlightActivity extends AppCompatActivity {
 
-    private UserInfo userInfo;
-
     private static final ExecutorService executor = Executors.newSingleThreadExecutor();
 
     private static final String TRAVELPAYOUTS_CLIENT_ID = "0e29a686b2ad016b6d43087b0f441dbe";
 
-    private final FlightsAdapter flightsAdapter = new FlightsAdapter(userInfo);
+
 
     protected static Intent createIntent(Context context, UserInfo userInfo) {
         Intent intent = new Intent(context, FlightActivity.class);
@@ -41,13 +39,14 @@ public class FlightActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         Intent intent = getIntent();
-        userInfo = intent.getParcelableExtra("UserInfo");
+        UserInfo userInfo = intent.getParcelableExtra("UserInfo");
+
+        final FlightsAdapter flightsAdapter = new FlightsAdapter(userInfo);
 
         final RecyclerView recyclerView = new RecyclerView(this);
-
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
         recyclerView.setAdapter(flightsAdapter);
+        setContentView(recyclerView);
 
         String s = userInfo.getStartPoint();
         String s1 = userInfo.getDestinationPoint();
