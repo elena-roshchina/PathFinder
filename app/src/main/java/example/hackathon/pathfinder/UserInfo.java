@@ -85,7 +85,7 @@ public class UserInfo implements Parcelable {
         return duration;
     }
 
-    public void setDuration(Integer duration) {
+    public void setDuration(int duration) {
         this.duration = duration;
     }
 

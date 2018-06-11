@@ -1,6 +1,5 @@
 package example.hackathon.pathfinder;
 
-import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -10,26 +9,19 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
-import java.io.IOException;
-import java.lang.reflect.Type;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
 import example.hackathon.pathfinder.autocomplete.AutoCompleteResult;
-import example.hackathon.pathfinder.autocomplete.AutoCompleteResults;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
-    private static final String AIRBNB_CLIENT_ID = "3092nxybyb0otqw18e8nh5nty";
 
     private EditText startDate, duration, sum;
     private AutoCompleteTextView startPoint, destinationPoint;
@@ -138,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void openTicketsActivity(){
-        startActivity(TicketsActivity.createIntent(this, userInfo));
+        startActivity(FlightActivity.createIntent(this, userInfo));
     }
 
     protected void convertToArray(Response<List<AutoCompleteResult>> response,

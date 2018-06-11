@@ -36,11 +36,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class App extends Application {
 
     public static AutoCompleteApi getAutoCompleteApi(){ return Retrofits.autocomplete; }
+
     public static AirbnbApi getAirbnbApi() {
         return Retrofits.airbnb;
     }
     public static FlightApi getFlightApi() { return Retrofits.flight; }
-
 }
 
 class Retrofits {
@@ -56,6 +56,7 @@ class Retrofits {
     private Context context;
 
     static final AutoCompleteApi autocomplete;
+
     static final AirbnbApi airbnb;
     static final FlightApi flight;
 
