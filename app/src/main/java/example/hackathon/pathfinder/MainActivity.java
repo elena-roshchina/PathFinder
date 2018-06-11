@@ -35,9 +35,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         final Calendar currentDate = Calendar.getInstance();
-        currentYear = currentDate.YEAR;
-        currentMonth = currentDate.MONTH;
-        currentDay = currentDate.DAY_OF_MONTH;
+        currentYear =  currentDate.get(Calendar.YEAR);
+        currentMonth = currentDate.get(currentDate.MONTH);
+        currentDay = currentDate.get(Calendar.DAY_OF_MONTH);
 
         userInfo = new UserInfo();
 
@@ -110,14 +110,18 @@ public class MainActivity extends AppCompatActivity {
         duration.addTextChangedListener(new MyTextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
-                userInfo.setDuration(Integer.parseInt(sum.getText().toString()));
+                if(!duration.getText().toString().isEmpty()) {
+                    userInfo.setDuration(Integer.parseInt(duration.getText() + ""));
+                }
             }
         });
         sum = findViewById(R.id.sumEdit);
         sum.addTextChangedListener(new MyTextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
-                userInfo.setSum(Integer.parseInt(sum.getText().toString()));
+                if(!sum.getText().toString().isEmpty()) {
+                    userInfo.setSum(Integer.parseInt(sum.getText().toString()));
+                }
             }
         });
         goButton = findViewById(R.id.goButton);
