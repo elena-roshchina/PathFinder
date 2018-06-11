@@ -1,7 +1,6 @@
 package example.hackathon.pathfinder;
 
-import android.content.Context;
-import android.content.Intent;
+import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.support.v7.widget.RecyclerView;
@@ -20,11 +19,14 @@ public class FlightsAdapter extends RecyclerView.Adapter<FlightsAdapter.FlightsV
 
     final private ArrayList<Flight> flights;
     final private UserInfo userInfo;
+    private final Activity activity;
 
 
-    public FlightsAdapter(UserInfo userInfo) {
+    public FlightsAdapter(UserInfo userInfo, Activity activity) {
+        this.activity = activity;
         this.flights = new ArrayList<Flight>();
         this.userInfo = userInfo;
+
     }
 
     public void addFlights(List<Flight> flights) {
@@ -78,16 +80,14 @@ public class FlightsAdapter extends RecyclerView.Adapter<FlightsAdapter.FlightsV
                     int idOnClick = getAdapterPosition();
                     Flight flight = flights.get(idOnClick);
                     int price = ((userInfo.getSum() - flight.getValue()) / (userInfo.getDuration()*7));
-                    v.getContext().startActivity(
+                    activity.startActivityForResult(
                             Apartments.apptsIntent(
                                     v.getContext(),
                                     userInfo.getDestinationPoint(),
                                     price,
                                     flight
-                            )
+                            ),0
                     );
-
-
                 }
             });
         }

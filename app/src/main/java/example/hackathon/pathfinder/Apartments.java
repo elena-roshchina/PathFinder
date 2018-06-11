@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -45,7 +46,6 @@ public class Apartments extends AppCompatActivity {
 
 
     public static Intent apptsIntent(Context context, String location, int price, Flight flight){
-
         Intent apartmentsIntent = new Intent(context, Apartments.class);
         apartmentsIntent.putExtra(EXTRA_LOCATION, location);
         apartmentsIntent.putExtra(EXTRA_PRICE, price);
@@ -136,10 +136,30 @@ public class Apartments extends AppCompatActivity {
             public void run() {
                 apartmentCountTxt.append(" found" + searchResult.size());
                 mDialog.cancel();
-                airbnbAdapter = new AirbnbAdapter(searchResult);
+
+                airbnbAdapter = new AirbnbAdapter(searchResult, new AirbnbAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(@NonNull SearchResult searchResult, int position) {
+                        startActivityForResult(resumeIntent(Apartments.this,
+                                (Flight) getIntent().getParcelableExtra(EXTRA_FLIGHT),
+                                searchResult.getListing().getPictureUrl(),
+                                searchResult.getPricingQuote().getRate().getAmount(),
+                                searchResult.getListing().getStarRating()),0
+                        );
+                    }
+                });
                 recyclerView.setAdapter(airbnbAdapter);
             }
         });
 
     }// end of fetchData
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 0 && resultCode == RESULT_OK){
+            setResult(RESULT_OK);
+            finish();
+        }
+    }
 }

@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity"
     android:id="@+id/mainLayout"
-    android:layout_margin="@dimen/main_margin">
+    android:padding="@dimen/main_margin"
+    android:background="@drawable/bgimage">
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="@dimen/zero_dp"

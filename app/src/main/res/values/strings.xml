@@ -26,4 +26,5 @@
 
     <string name="apartments_found">Apartments found =</string>
     <string name="executing_task">Apartments search</string>
+    <string name="new_search">New search?</string>
 </resources>
