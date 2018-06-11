@@ -21,18 +21,13 @@ import retrofit2.Retrofit;
 
 public class FlightActivity extends AppCompatActivity {
 
-    private static final ExecutorService executor = Executors.newSingleThreadExecutor();
-
     private static final String TRAVELPAYOUTS_CLIENT_ID = "0e29a686b2ad016b6d43087b0f441dbe";
-
-
 
     protected static Intent createIntent(Context context, UserInfo userInfo) {
         Intent intent = new Intent(context, FlightActivity.class);
         intent.putExtra("UserInfo", userInfo);
         return intent;
     }
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

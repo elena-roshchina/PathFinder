@@ -2,10 +2,10 @@
     <string name="app_name">PathFinder</string>
     <string name="caption_button_go">Go!</string>
     <string name="hint_date_start">Start date</string>
-    <string name="hint_date_end">Duration</string>
+    <string name="hint_date_end">Duration (weeks)</string>
     <string name="hint_point_start">Start point</string>
     <string name="hint_point_destination">Destination point</string>
-    <string name="hint_sum">Sum</string>
+    <string name="hint_sum">Sum (USD)</string>
 
     <string name="caption_ticket_price">Price</string>
     <string name="caption_ticket_start">Start ticket</string>

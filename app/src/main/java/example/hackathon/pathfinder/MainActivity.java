@@ -146,6 +146,7 @@ public class MainActivity extends AppCompatActivity {
         }
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(),
                 android.R.layout.simple_dropdown_item_1line, str.toArray(new String[0]));
+        adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         point.setAdapter(adapter);
     }
 
