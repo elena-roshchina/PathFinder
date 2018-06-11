@@ -80,8 +80,8 @@ public class FlightsAdapter extends RecyclerView.Adapter<FlightsAdapter.FlightsV
                     v.getContext().startActivity(
                             Apartments.apptsIntent(
                                     v.getContext(),
-                            "Paris",
-                            (userInfo.getSum() - flight.getValue()) / 7
+                                    userInfo.getDestinationPoint(),
+                                    (userInfo.getSum() - flight.getValue()) / 7
                             )
                     );
                 }
