@@ -61,7 +61,6 @@ public class FlightActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<FlightResults> call, Response<FlightResults> response) {
                 flightsAdapter.addFlights(response.body().getData());
-
             }
 
             @Override
