@@ -21,7 +21,6 @@ import java.util.concurrent.Executors;
 import example.hackathon.pathfinder.airbnbmodel.AirBnbModel;
 import example.hackathon.pathfinder.airbnbmodel.SearchResult;
 import example.hackathon.pathfinder.flight.Flight;
-import example.hackathon.pathfinder.flight.PathResume;
 import retrofit2.Response;
 
 public class Apartments extends AppCompatActivity {

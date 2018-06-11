@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Apartments"/>
-        <activity android:name=""
+        <activity android:name=".PathResume"/>
     </application>
 
 </manifest>
